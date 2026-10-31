@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --felt: #1e2a4a;
+  --felt-deep: #172140;
+  --felt-line: #2f3d63;
+  --paper: #f7f7f2;
+  --paper-2: #ecebe3;
+  --ink: #1b1f2a;
+  --ink-soft: #545b6b;
+  --line: #d6d4c8;
+
+  --red: #e5383b;   --red-ink: #b3242a;   --red-tint: #fbd9d9;
+  --green: #2ba84a; --green-ink: #1d7a35; --green-tint: #d4f0db;
+  --yellow: #f4b400; --yellow-ink: #8a6500; --yellow-tint: #fdeec2;
+  --blue: #2d7dd2;  --blue-ink: #1d5fa8;  --blue-tint: #d6e6f8;
+
+  --q-easy: #2ba84a; --q-medium: #f4b400; --q-hard: #e5383b;
+  --accent: var(--paper);
+  --accent-ink: var(--ink);
+}
+
+@theme inline {
+  --color-felt: var(--felt);
+  --color-felt-deep: var(--felt-deep);
+  --color-felt-line: var(--felt-line);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-atkinson);
+}
+
+html, body { height: 100%; }
+body {
+  background: var(--felt);
+  color: var(--paper);
+  font-family: var(--font-atkinson), Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Felt texture: fine woven dots, kept very quiet */
+.felt {
+  background-color: var(--felt);
+  background-image: radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
+:focus-visible { outline: 3px solid #ffd166; outline-offset: 2px; border-radius: 6px; }
+
+.font-display { font-family: var(--font-bricolage), Arial, sans-serif; }
+
+@keyframes hop {
+  0% { transform: translateY(-140%) scale(0.6); opacity: 0; }
+  60% { transform: translateY(8%) scale(1.05); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 70%, transparent); }
+  50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 0%, transparent); }
+}
+@keyframes tumble {
+  0% { transform: rotate(0) scale(1); }
+  40% { transform: rotate(200deg) scale(0.85); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@keyframes rise { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+.anim-rise { animation: rise .22s ease-out both; }
+.anim-tumble { animation: tumble .5s cubic-bezier(.3,.7,.3,1) both; }
+.movable { animation: pulse-ring 1.1s ease-in-out infinite; cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
